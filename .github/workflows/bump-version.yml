@@ -53,10 +53,9 @@ jobs:
 
     - name: bump version
       run: npm version ${{ github.event.inputs.version }}
-    - name: delete old tags
-      run: |
-           git tag -d refs/heads/master;
-           git push origin :refs/heads/master;
+    - name: list old tags
+      run: git tag -l
+
 
     - name: Push latest version
       run: git push origin master --follow-tags
