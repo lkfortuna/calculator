@@ -1,4 +1,4 @@
-name: Node.js CI-Myles
+name: Node.js CI
 
 on:
   push:
