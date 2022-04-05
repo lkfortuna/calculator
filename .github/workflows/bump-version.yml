@@ -53,8 +53,8 @@ jobs:
 
     - name: bump version
       run: npm version ${{ github.event.inputs.version }}
-    - name: list old tags
-      run: git tag -l
+    - name: delete old tags
+      run: git push --delete origin refs/heads/master
 
 
     - name: Push latest version
