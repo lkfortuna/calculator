@@ -8,17 +8,18 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
-  run-tests:
-    strategy:
-      matrix:
-        node-version: ['17', '16', '14', '12']
-        os: [ubuntu-latest, macos-latest, windows-latest]
-
-    runs-on: ${{ matrix.os }}
+     runs-on: ubuntu-larger
 
     steps:
     - uses: actions/checkout@v2
 
+    
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-verison: "2.6"
+        bundler-cache: true
+        
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
