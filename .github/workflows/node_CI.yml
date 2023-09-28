@@ -8,17 +8,37 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
-  run-tests:
-    strategy:
-      matrix:
-        node-version: ['17', '16', '14', '12']
-        os: [ubuntu-latest, macos-latest, windows-latest]
-
-    runs-on: ${{ matrix.os }}
+     runs-on: ubuntu-build-image
 
     steps:
     - uses: actions/checkout@v2
 
+     - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-verison: "2.6"
+        bundler-cache: true
+        
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: "1.18"
+        
+    - name: Set Up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Build and push
+      uses: docker/bake-action@v3
+      with:
+        file: ./Dockerfile
+        push: false
+
+   - uses: actions/snapshot@v1
+     with:
+         image-name: "custom-image-ubuntu"
+         runner-name: "ubuntu-custom-pool"
+
+         
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
