@@ -36,6 +36,7 @@ jobs:
    - uses: actions/snapshot@v1
      with:
          image-name: "custom-image-ubuntu"
+         runner-name: "ubuntu-custom-pool"
 
          
     - name: Use Node.js ${{ matrix.node-version }}
