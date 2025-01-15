@@ -56,3 +56,6 @@ jobs:
 
     - name: Push latest version
       run: git push origin master --follow-tags
+
+    - name: Check for arm
+      run: curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" | jq
