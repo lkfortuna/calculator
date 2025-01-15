@@ -28,6 +28,8 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - name: Check for arm
+      run: curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" | jq
     # Check out the content (source branch).  Use a deploy key so that
     # when we push changes, it will trigger the release workflow
     # run that runs on: tag. (Using the GitHub token would
@@ -57,5 +59,4 @@ jobs:
     - name: Push latest version
       run: git push origin master --follow-tags
 
-    - name: Check for arm
-      run: curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" | jq
+
